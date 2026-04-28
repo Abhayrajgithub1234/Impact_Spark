@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, Cpu, Lightbulb, ArrowRight, ArrowDown } from 'lucide-react';
+import { Database, Cpu, Lightbulb, ArrowRight } from 'lucide-react';
 
 const Workflow = () => {
   const steps = [
