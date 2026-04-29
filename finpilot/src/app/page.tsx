@@ -95,6 +95,117 @@ export default function Home() {
     ["Contingency", "10%"],
   ];
 
+  const DashboardPreview = () => (
+    <>
+      <div className="flex flex-col gap-2 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-sm uppercase tracking-[0.24em] text-cyan-100/70">
+            FinPilot dashboard
+          </p>
+          <p className="text-xl font-semibold text-white sm:text-2xl">₹42,680</p>
+        </div>
+        <div className="inline-flex w-fit rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-medium text-emerald-100">
+          {demoModes[activeMode].stat}
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
+        <div className="rounded-[1.25rem] border border-white/10 bg-[var(--panel-strong)] p-4 sm:rounded-[1.5rem]">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-slate-300">{demoModes[activeMode].label}</p>
+            <p className="text-sm text-cyan-100">Live preview</p>
+          </div>
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p className="text-base font-semibold text-white sm:text-lg">{demoModes[activeMode].title}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-[15px]">{demoModes[activeMode].body}</p>
+          </div>
+          <div className="mt-4 flex h-40 items-end gap-2 sm:h-48 sm:gap-3">
+            {[36, 48, 62, 54, 74, 66, 80].map((height, index) => {
+              const adjustedHeight =
+                activeMode === "budget"
+                  ? height + 10
+                  : activeMode === "invest"
+                    ? height - 2
+                    : height;
+
+              return (
+                <div key={index} className="flex-1">
+                  <div
+                    className="rounded-t-2xl bg-gradient-to-t from-cyan-400 to-emerald-300 transition-all duration-300"
+                    style={{ height: `${adjustedHeight * 2}px` }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-4 grid grid-cols-5 gap-1 text-center text-[10px] text-slate-400 sm:text-xs">
+            <span>{activeMode === "track" ? "Food" : "Month 1"}</span>
+            <span>{activeMode === "track" ? "Bills" : "Month 2"}</span>
+            <span>{activeMode === "track" ? "Travel" : "Month 3"}</span>
+            <span>{activeMode === "track" ? "Invest" : "Month 4"}</span>
+            <span>{activeMode === "track" ? "Others" : "Month 5"}</span>
+          </div>
+        </div>
+
+        <div className="space-y-4 rounded-[1.5rem] border border-white/10 bg-[var(--panel-strong)] p-4">
+          <div className="rounded-2xl bg-white/5 p-4">
+            <p className="text-sm text-slate-300">AI alerts</p>
+            <p className="mt-1 text-base font-medium text-white sm:text-lg">{demoModes[activeMode].stat}</p>
+            <div className="mt-3 h-2 rounded-full bg-white/10">
+              <div
+                className="h-2 rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300 transition-all duration-300"
+                style={{ width: demoModes[activeMode].progress }}
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                {activeMode === "invest" ? "SIP growth" : "Budget health"}
+              </p>
+              <p className="mt-2 text-2xl font-semibold text-white">
+                {activeMode === "invest" ? "+18.4%" : activeMode === "budget" ? "92%" : "88%"}
+              </p>
+              <p className="text-sm text-emerald-200">
+                {activeMode === "invest"
+                  ? "Projected over 12 months"
+                  : activeMode === "budget"
+                    ? "Spending is within range"
+                    : "Monthly plan is on track"}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+                FinBot status
+              </p>
+              <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">Online</p>
+              <p className="text-sm text-cyan-100">
+                {activeMode === "invest"
+                  ? "Explains finance in simple language"
+                  : activeMode === "budget"
+                    ? "Suggests the next budget adjustment"
+                    : "Detects spending patterns"}
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(34,197,94,0.16),rgba(103,232,249,0.08))] p-4">
+            <p className="text-sm text-slate-200">Budget vs actual</p>
+            <div className="mt-3 flex items-center gap-3">
+              <div className="h-20 w-20 rounded-full border-[10px] border-emerald-300/80 border-r-cyan-300 border-t-cyan-300/35" />
+              <div className="space-y-1 text-sm text-slate-200">
+                <p>Budget: 100%</p>
+                <p>Actual spend: 86%</p>
+                <p className="text-emerald-200">Still within target this month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <main className="relative overflow-hidden" id="top">
       <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-10">
@@ -197,112 +308,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="flex flex-col gap-2 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.24em] text-cyan-100/70">
-                    FinPilot dashboard
-                  </p>
-                  <p className="text-xl font-semibold text-white sm:text-2xl">₹42,680</p>
-                </div>
-                <div className="inline-flex w-fit rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-medium text-emerald-100">
-                  {demoModes[activeMode].stat}
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
-                <div className="rounded-[1.25rem] border border-white/10 bg-[var(--panel-strong)] p-4 sm:rounded-[1.5rem]">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-slate-300">{demoModes[activeMode].label}</p>
-                    <p className="text-sm text-cyan-100">Live preview</p>
-                  </div>
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-base font-semibold text-white sm:text-lg">{demoModes[activeMode].title}</p>
-                    <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-[15px]">{demoModes[activeMode].body}</p>
-                  </div>
-                  <div className="mt-4 flex h-40 items-end gap-2 sm:h-48 sm:gap-3">
-                    {[36, 48, 62, 54, 74, 66, 80].map((height, index) => {
-                      const adjustedHeight =
-                        activeMode === "budget"
-                          ? height + 10
-                          : activeMode === "invest"
-                            ? height - 2
-                            : height;
-
-                      return (
-                        <div key={index} className="flex-1">
-                          <div
-                            className="rounded-t-2xl bg-gradient-to-t from-cyan-400 to-emerald-300 transition-all duration-300"
-                            style={{ height: `${adjustedHeight * 2}px` }}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="mt-4 grid grid-cols-5 gap-1 text-center text-[10px] text-slate-400 sm:text-xs">
-                    <span>{activeMode === "track" ? "Food" : "Month 1"}</span>
-                    <span>{activeMode === "track" ? "Bills" : "Month 2"}</span>
-                    <span>{activeMode === "track" ? "Travel" : "Month 3"}</span>
-                    <span>{activeMode === "track" ? "Invest" : "Month 4"}</span>
-                    <span>{activeMode === "track" ? "Others" : "Month 5"}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-4 rounded-[1.5rem] border border-white/10 bg-[var(--panel-strong)] p-4">
-                  <div className="rounded-2xl bg-white/5 p-4">
-                    <p className="text-sm text-slate-300">AI alerts</p>
-                    <p className="mt-1 text-base font-medium text-white sm:text-lg">{demoModes[activeMode].stat}</p>
-                    <div className="mt-3 h-2 rounded-full bg-white/10">
-                      <div
-                        className="h-2 rounded-full bg-gradient-to-r from-cyan-300 to-emerald-300 transition-all duration-300"
-                        style={{ width: demoModes[activeMode].progress }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                        {activeMode === "invest" ? "SIP growth" : "Budget health"}
-                      </p>
-                      <p className="mt-2 text-2xl font-semibold text-white">
-                        {activeMode === "invest" ? "+18.4%" : activeMode === "budget" ? "92%" : "88%"}
-                      </p>
-                      <p className="text-sm text-emerald-200">
-                        {activeMode === "invest"
-                          ? "Projected over 12 months"
-                          : activeMode === "budget"
-                            ? "Spending is within range"
-                            : "Monthly plan is on track"}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                        FinBot status
-                      </p>
-                      <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">Online</p>
-                      <p className="text-sm text-cyan-100">
-                        {activeMode === "invest"
-                          ? "Explains finance in simple language"
-                          : activeMode === "budget"
-                            ? "Suggests the next budget adjustment"
-                            : "Detects spending patterns"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(34,197,94,0.16),rgba(103,232,249,0.08))] p-4">
-                    <p className="text-sm text-slate-200">Budget vs actual</p>
-                    <div className="mt-3 flex items-center gap-3">
-                      <div className="h-20 w-20 rounded-full border-[10px] border-emerald-300/80 border-r-cyan-300 border-t-cyan-300/35" />
-                      <div className="space-y-1 text-sm text-slate-200">
-                        <p>Budget: 100%</p>
-                        <p>Actual spend: 86%</p>
-                        <p className="text-emerald-200">Still within target this month</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <DashboardPreview />
             </div>
           </div>
         </div>
@@ -383,6 +389,9 @@ export default function Home() {
                 </button>
               ))}
             </div>
+          </div>
+          <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[var(--panel)] p-4 shadow-[0_30px_120px_rgba(0,0,0,0.45)] sm:p-5">
+            <DashboardPreview />
           </div>
         </div>
       </section>
